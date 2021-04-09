@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Stonks Or Stinks</title>
+
+    <style>
+        #table1 {
+            width: 100%;
+        }
+
+        tr {
+            width: 14.28%;
+        }
+
+        td {
+            width: 14.28%;
+        }
+
+        /* Drop Up Menu */
+
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 50px;
+            color: black;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container" style="background-color: skyblue;">
+        <h1 class="text-center">Stonks Or Stinks</h1>
+    </div>
+    <div>
+        <div class="row">
+            <h2 id="RoundNumber" class="col text-center"></h2>
+            <h6 id="roundTimer" class="col text-center"></h6>
+            <script type="text/javascript">
+                var timeleft = 60;
+                var downloadTimer = setInterval(function () {
+                    timeleft--;
+                    document.getElementById("roundTimer").textContent = timeleft;
+                    if (timeleft <= 0) {
+                        clearInterval(downloadTimer);
+                        
+                        var dataToSend = new RoundEndData(UserId,
+                            document.getElementById("wockHold").innerHTML,
+                            document.getElementById("hdfcHold").innerHTML,
+                            document.getElementById("tataHold").innerHTML,
+                            document.getElementById("ongcHold").innerHTML,
+                            document.getElementById("relHold").innerHTML,
+                            document.getElementById("infoHold").innerHTML,
+                            document.getElementById("cashInHand").innerHTML,
+                            document.getElementById("RoundNumber").innerHTML,
+                            parseInt(document.getElementById("wockRate").innerHTML),
+                            parseInt(document.getElementById("hdfcRate").innerHTML),
+                            parseInt(document.getElementById("tataRate").innerHTML),
+                            parseInt(document.getElementById("ongcRate").innerHTML),
+                            parseInt(document.getElementById("relianceRate").innerHTML),
+                            parseInt(document.getElementById("infosysRate").innerHTML),
+                            CardsData,
+                            )
+                        localStorage["datatopass"] = JSON.stringify(dataToSend);
+                        //window.location.href = "ready.html";
+                    }
+                }, 1000);
+            </script>
+
+        </div>
+    </div>
+    <br>
+    <div class="container" style="border: 1px solid black; background-color: #212529;">
+        <table class="table-dark text-warning" id="table1">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Company</th>
+                    <th scope="col">Wockhardt</th>
+                    <th scope="col">HDFC</th>
+                    <th scope="col">TATA</th>
+                    <th scope="col">ONGC</th>
+                    <th scope="col">Reliance</th>
+                    <th scope="col">Infosys</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Current Rate</th>
+                    <td id="wockRate"></td>
+                    <td id="hdfcRate"></td>
+                    <td id="tataRate"></td>
+                    <td id="ongcRate"></td>
+                    <td id="relianceRate"></td>
+                    <td id="infosysRate"></td>
+                </tr>
+                <tr>
+                    <th scope="row">My Holdings</th>
+                    <td id="wockHold"></td>
+                    <td id="hdfcHold"></td>
+                    <td id="tataHold"></td>
+                    <td id="ongcHold"></td>
+                    <td id="relHold"></td>
+                    <td id="infoHold"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-3" style="padding: 20px; background-color: #212529;">
+                <div class="card">
+                    <h3 class="card-title">Net Worth</h5>
+                        <h6 id="netWorth" class="card-text">500000</h7>
+                            <h3 class="card-title">Cash In Hand</h5>
+                                <h6 id="cashInHand" class="card-text"></h6>
+
+                </div>
+            </div>
+
+            <div class="col-5" style="padding: 10px; background-color: #212529;">
+                <div class="card">
+                    <h3 class="card-title text-center">Logs</h3>
+                    <div style="overflow-y: scroll; height: 165px;" id="logsOfActions"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col" style="background-color: #212529; padding: 10px;">
+
+                <br>
+
+                <div class="row gy-2 gx-3 align-items-center" id="form1">
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="action1">Preference</label>
+                        <select class="form-select" id="action1" onchange="ifPass1()">
+                            <option value="1">Buy</option>
+                            <option value="2">Sell</option>
+                            <option value="3">Pass</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="Company1">Preference</label>
+                        <select class="form-select" id="Company1" onchange="form1DynamicPrice()">
+                            <option value="1">Wockhardt</option>
+                            <option value="2">HDFC</option>
+                            <option value="3">TATA</option>
+                            <option value="4">ONGC</option>
+                            <option value="5">Reliance</option>
+                            <option value="6">Infosys</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="purchaseOrder1">How Many</label>
+                        <input type="number" step="100" min="0" class="form-control" id="purchaseOrder1"
+                            placeholder="How Many" onchange="form1DynamicPrice()">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicPrice1">Price</label>
+                        <input type="number" class="form-control" disabled id="dynamicPrice1" placeholder="Price">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicTotal1">Total</label>
+                        <input type="number" class="form-control" disabled id="dynamicTotal1" placeholder="Total">
+                    </div>
+
+                    <div class="col-auto">
+                        <button id="form1Submit" onclick="form1()" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row gy-2 gx-3 align-items-center" id="form2">
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="action2">Preference</label>
+                        <select class="form-select" id="action2" onchange="ifPass2()">
+                            <option value="1">Buy</option>
+                            <option value="2">Sell</option>
+                            <option value="3">Pass</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="Company2">Preference</label>
+                        <select class="form-select" id="Company2" onchange="form2DynamicPrice()">
+                            <option value="1">Wockhardt</option>
+                            <option value="2">HDFC</option>
+                            <option value="3">TATA</option>
+                            <option value="4">ONGC</option>
+                            <option value="5">Reliance</option>
+                            <option value="6">Infosys</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="purchaseOrder2">How Many</label>
+                        <input type="number" step="100" min="0" class="form-control" id="purchaseOrder2"
+                            placeholder="How Many" onchange="form2DynamicPrice()">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicPrice2">Price</label>
+                        <input type="number" class="form-control" disabled id="dynamicPrice2" placeholder="Price">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicTotal2">Total</label>
+                        <input type="number" class="form-control" disabled id="dynamicTotal2" placeholder="Total">
+                    </div>
+
+                    <div class="col-auto">
+                        <button id="form2Submit" onclick="form2()" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row gy-2 gx-3 align-items-center" id="form1">
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="action3">Preference</label>
+                        <select class="form-select" id="action3" onchange="ifPass3()">
+                            <option value="1">Buy</option>
+                            <option value="2">Sell</option>
+                            <option value="3">Pass</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="Company3">Preference</label>
+                        <select class="form-select" id="Company3" onchange="form3DynamicPrice()">
+                            <option value="1">Wockhardt</option>
+                            <option value="2">HDFC</option>
+                            <option value="3">TATA</option>
+                            <option value="4">ONGC</option>
+                            <option value="5">Reliance</option>
+                            <option value="6">Infosys</option>
+                        </select>
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="purchaseOrder3">How Many</label>
+                        <input type="number" step="100" min="0" class="form-control" id="purchaseOrder3"
+                            placeholder="How Many" onchange="form3DynamicPrice()">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicPrice3">Price</label>
+                        <input type="number" class="form-control" disabled id="dynamicPrice3" placeholder="Price">
+                    </div>
+
+                    <div class="col-auto">
+                        <label class="visually-hidden" for="dynamicTotal3">Total</label>
+                        <input type="number" class="form-control" disabled id="dynamicTotal3" placeholder="Total">
+                    </div>
+
+                    <div class="col-auto">
+                        <button id="form3Submit" onclick="form3()" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+                <br>
+
+            </div>
+
+            <div class="col-2 d-flex align-items-center justify-content-center"
+                style="background-color: #212529; padding: 10px;">
+                <div>
+                    <button style="padding: 50%;" onclick="on()">Show Cards</button>
+                </div>
+
+                <div class="col-3">
+                    <div id="overlay" onclick="off()">
+                        <div id="text">
+                            <!-- CARDS  -->
+                            <div class="row">
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint1" class="card-title">Points</h2>
+                                    <h3 id="cardCompany1" class="card-title">Company</h3>
+                                    <h6 id="cardDes1" class="card-text">Description</h6>
+                                </div>
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint2" class="card-title">Points</h2>
+                                    <h3 id="cardCompany2" class="card-title">Company</h3>
+                                    <h6 id="cardDes2" class="card-text">Description</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint3" class="card-title">Points</h2>
+                                    <h3 id="cardCompany3" class="card-title">Company</h3>
+                                    <h6 id="cardDes3" class="card-text">Description</h6>
+                                </div>
+
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint4" class="card-title">Points</h2>
+                                    <h3 id="cardCompany4" class="card-title">Company</h3>
+                                    <h6 id="cardDes4" class="card-text">Description</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint5" class="card-title">Points</h2>
+                                    <h3 id="cardCompany5" class="card-title">Company</h3>
+                                    <h6 id="cardDes5" class="card-text">Description</h6>
+                                </div>
+                                <div class="col card align-items-center" style="margin: 20px;">
+                                    <h2 id="cardPoint6" class="card-title">Points</h2>
+                                    <h3 id="cardCompany6" class="card-title">Company</h3>
+                                    <h6 id="cardDes6" class="card-text">Description</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+                    function on() {
+                        document.getElementById("overlay").style.display = "block";
+                    }
+
+                    function off() {
+                        document.getElementById("overlay").style.display = "none";
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/singleGame.js"></script>
+</body>
+
+</html>

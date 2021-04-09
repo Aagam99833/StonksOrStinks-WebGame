@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-base.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <br><br>
+    <div class="container justify-content-center col" style="width: 100%;">
+        <h1 class="text-center">Round Ended</h1>
+        <h2 class="text-center">Results</h2>
+        <div id="chartContainer" style="height: 450px;"></div>
+        <button onclick=sendData()>Submit</button>
+        <script src="js/ready.js"></script>
+    </div>
+</body>
+
+</html>

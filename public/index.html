@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stonks or Not Stonks</title>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            background-image: url('image.png');
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        #playBtn {
+            position: absolute;
+            bottom: 1%;
+        }
+
+        form {
+            font-size: 40px;
+            position: relative;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="playBtn">
+            <label>Username: </label>
+            <input type="text" id="USERNAME" required>
+            <button onclick="startSinglePlayer()">Single Player</button>
+            <button onclick="startMultiPlayer()">Multiplayer</button>
+        <script>
+            window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+        </script>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="js/index.js"></script>
+    </div>
+</body>
+
+</html>
